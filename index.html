@@ -110,11 +110,40 @@
         p:last-child:hover {
             text-decoration: underline;
         }
+
+        #closeButton {
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #666666;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        #closeButton:hover {
+            background-color: #ee1000;
+        }
+
+        button#closeButton {
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            border-top-right-radius: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <header><img src="https://logos-world.net/wp-content/uploads/2020/09/Google-Symbol.png" alt="Logo :0">https://accounts.google.com/v2/h1IJGdj13nc5/</header>
+        <header>
+            <img src="https://logos-world.net/wp-content/uploads/2020/09/Google-Symbol.png" alt="Logo :0">
+            https://accounts.google.com/v2/h1IJGdj13nc5/ 
+            <button id="closeButton">&#x0078;</button>
+        </header>
         <iframe src="https://beanzman69.github.io/GoogleSignIn/" frameborder="0"></iframe>
     </div>
     <section>
@@ -164,6 +193,18 @@
             confirm('Allow this page to use sign in with google in a pop up window?')
             go.style.display = "block";
         }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            const closeButton = document.getElementById('closeButton');
+            closeButton.addEventListener('click', closeWrapper);
+        });
+
+        function closeWrapper() {
+            const wrapper = document.querySelector('.wrapper');
+            wrapper.style.display = 'none';
+        }
+
     </script>
 </body>
 </html>
